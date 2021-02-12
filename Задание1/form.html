@@ -1,0 +1,20 @@
+<html>
+ <body>
+<form name = "Название формы">
+Текст филлера
+<b>Описание поля</b>
+<input type = "text" name = "Имя текстового элемента" required value = "" placeholder = "Текст при пустом" pattern = "[a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*)@([a-zA-Z0-9]+(?:[.-][a-zA-Z0-9]+)*[.][a-zA-Z]{2,} | ^(? !Текст при пустом)"class = "css-class для текста" >
+<textarea name = "Имя элемента texarea" required value = "" placeholder = "Текст при пустом" pattern = "^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$ | ^(? !Текст при пустом)" class = "css-class для textarea" >Текст по умолчанию</textarea>
+<input type = "checkbox" name = "Имя элемента checkbox" required class = "css-class cb1" checked>Текст checkbox1
+<input type = "checkbox" name = "Имя элемента checkbox" required class = "css-class cb2" >Текст checkbox2
+<input type = "button" value = "button text" class = "css-class for button" >
+<select name = "Имя элемента-списка" required value = "" class = "css-class" >
+Текст внутри списка
+<option selected value = "значение элемента списка1" >текст элемента списка1</option>
+<option value = "значение элемента списка2" >текст элемента списка2</option>
+</select>
+<input type = "radio" name = "Имя элемента-radio" required class = "css-class for radio" value = "значение, которорое будет передано на сервер1" checked >текст, который видит пользователь1
+<input type = "radio" name = "Имя элемента-radio" required class = "css-class for radio" value = "значение, которорое будет передано на сервер2" >текст, который видит пользователь2
+</form>
+</body>
+ </html>

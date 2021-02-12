@@ -1,0 +1,65 @@
+Данный код производит вставку пары ключ-значение в массив, при этом сохраняет порядок их сортировки по возрастанию
+(сортировка по значению ключей),
+но данный имеет только если массив изначально отсортирован по возрастанию значения ключей
+поиск происходит в первой функции с помощью алгоритма бинарного поиска,
+если массив пуст, то происходит добавление в него элемента и выход из из функции.
+В Func2 передаётся массив a типа ключ-значение, если его длина равна нулю, то есть он не содержит элементов, то в массив добавляется элемент
+и происходит выход их функции, если в массиве имеются элементы, то определяется значение переменной pos исходя от значения key, переданного в функцию,
+если ключ key меньше ключа первого элемента, то pos примет значение 0, если ключ key больше ключа последнего элемента массива, то pos примет значение конца массива,
+иначе pos примет значение которое  вернёт бинарный поиск из Func1, то есть индекс на который разметиться новый элемент.
+небольшие оптимизации ниже
+static int Func1(KeyValuePair<int, string>[] a, int low, int high, int key)
+
+{
+    int middle = low + ((high - low) / 2); // это следут выполнять после проверки на нахождение позиции
+    if (low == high)         
+        return low;
+    //int middle = low + ((high - low) / 2) вот тут, но если оставлять прежнюю логику работы
+    if (key > a[middle].Key)
+        return Func1(a, middle + 1, high, key);
+    return Func1(a, low, middle, key);
+    //вместо использования рекурсии можно использовать такое решение, что лучше скажется на скорости работы
+    //while (true)
+    //{
+    //    if (high - low == 1)
+    //    {
+    //        if (key == a[low].Key)
+    //            return low;
+    //        return high; //если такого ключа нет в массиве, то он элемент с этим ключом встанет после элемента с меньшим, но до элемента с большим ключом
+    //    }
+    //    else
+    //    {
+    //        var middle = low + (high - low) / 2;
+    //        if (a[middle].Key == key)
+    //            return middle;
+    //        if (a[middle].Key < key)
+    //            low = middle;
+    //        if (a[middle].Key > key)
+    //            high = middle;
+    //    }
+    }
+static void Func2(ref KeyValuePair<int, string>[] a, int key, string value)
+{
+    int pos;
+    KeyValuePair<int, string> keyValuePair;// фактически бесполезная переменная
+    if (a.Length == 0)
+    {
+        Array.Resize(ref a, 1);
+        keyValuePair = new KeyValuePair<int, string>(key, value);
+        a[0] = keyValuePair;
+        //a[0] = new keyValuePair<int, string>(key, value);
+        return;
+    }
+    if (key < a[0].Key)
+        pos = 0;
+    else if (key > a[a.Length - 1].Key)
+        pos = a.Length;
+    else
+        pos = Func1(a, 0, a.Length - 1, key);
+    Array.Resize(ref a, a.Length + 1);
+    for (int i = a.Length - 1; i > pos; i--)
+        a[i] = a[i - 1];
+    keyValuePair = new KeyValuePair<int, string>(key, value);//здесь аналогично можно избавится от этой переменной
+    a[pos] = keyValuePair;
+    //a[pos] = new KeyValuePair<int, string>(key, value);
+}
